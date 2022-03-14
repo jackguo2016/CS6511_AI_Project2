@@ -1,6 +1,6 @@
 import java.io.*;
 import java.util.*;
-public class Main { //test pushhhhhhhhhhhhhhhhhhhhhhh+1 //test pushhhhhhhhhhhhhhhhhhhhhhh+1
+public class Main {
     static int numOfClolor;//看有多少个颜色可以选
     static int nodecounter = 0;//记录现在有多少个node已经生成了
     static ArrayList<Node> graph =new ArrayList<>();//一个动态array来记录图上所有的节点
@@ -73,4 +73,6 @@ public class Main { //test pushhhhhhhhhhhhhhhhhhhhhhh+1 //test pushhhhhhhhhhhhhh
 
 
 }
- //test pushhhhhhhhhhhhhhhhhhhhhhh+1
+
+
+//
