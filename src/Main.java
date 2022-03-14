@@ -4,6 +4,9 @@ public class Main {
     static int numOfClolor;//看有多少个颜色可以选
     static int nodecounter = 0;//记录现在有多少个node已经生成了
     static ArrayList<Node> graph =new ArrayList<>();//一个动态array来记录图上所有的节点
+
+    static int [] listnode =new int [9999]; //用来记录创建了的node的值
+    //static int listcount = 0;//上面中国array的index
     public static void main(String[] args)
     {//一开始读的时候需要把所有的节点统一存到一个array里去
 
@@ -21,15 +24,76 @@ public class Main {
                 if(graph.isEmpty()) {
                     Node x = new Node(Integer.parseInt(input[0]), numOfClolor);
                     graph.add(x);
+                    listnode[nodecounter] = Integer.parseInt(input[0]);
                     nodecounter++;
                     Node y = new Node(Integer.parseInt(input[1]), numOfClolor);//每一行输入创建两个node
                     graph.add(x);
+                    listnode[nodecounter] = Integer.parseInt(input[0]);
                     nodecounter++;
                     x.addne(y);//把他们链接状态记录给他们两个的array里
                     y.addne(x);
                 }
                 else{
-                    for (int i = 0; i< graph.size();i++) {
+                    if(isContainKey(listnode,Integer.parseInt(input[0]))){
+                        if(isContainKey(listnode,Integer.parseInt(input[1]))){
+                            for (int i = 0; i< graph.size();i++) {
+                                for (int j = 0; j < graph.size(); j++) {
+                                    if(graph.get(i).name == Integer.parseInt(input[0]) && graph.get(j).name == Integer.parseInt(input[1])){
+                                        graph.get(i).addne(graph.get(j));
+                                        graph.get(j).addne(graph.get(i));
+                                    }
+                                }
+                            }
+                        }
+                        if(!isContainKey(listnode,Integer.parseInt(input[1]))){
+                            Node x = new Node(Integer.parseInt(input[1]), numOfClolor);
+                            graph.add(x);
+                            listnode[nodecounter] = Integer.parseInt(input[1]);
+                            nodecounter++;
+                            for (int i = 0; i< graph.size();i++) {
+                                if(graph.get(i).name == Integer.parseInt(input[0]) ){
+                                    graph.get(i).addne(x);
+                                    x.addne(graph.get(i));
+                                }
+
+                            }
+                        }
+
+                    }
+                    else{
+                        Node x = new Node(Integer.parseInt(input[0]), numOfClolor);
+                        graph.add(x);
+                        listnode[nodecounter] = Integer.parseInt(input[0]);
+                        nodecounter++;
+                        if(isContainKey(listnode,Integer.parseInt(input[1]))){
+                            for (int i = 0; i< graph.size();i++) {
+                                if(graph.get(i).name == Integer.parseInt(input[1])){
+                                    graph.get(i).addne(x);
+                                    x.addne(graph.get(i));
+                                }
+
+                            }
+                        }
+                        else{
+                            Node y = new Node(Integer.parseInt(input[1]), numOfClolor);
+                            graph.add(y);
+                            listnode[nodecounter] = Integer.parseInt(input[1]);
+                            nodecounter++;
+                            x.addne(y);//把他们链接状态记录给他们两个的array里
+                            y.addne(x);
+                        }
+                    }
+
+
+
+
+
+
+
+
+
+
+                    /*for (int i = 0; i< graph.size();i++) {
                         for (int j = 1; j < graph.size(); j++) {
                             if (graph.get(i).name == Integer.parseInt(input[0])) {
                                 Node x = new Node(Integer.parseInt(input[1]), numOfClolor);
@@ -39,7 +103,7 @@ public class Main {
                             }
 
                         }
-                    }
+                    }*/
                 }
             }
 
@@ -69,6 +133,23 @@ public class Main {
 
     public void LCV(){//在备选色中该选那个颜色，这里的策略是选
 
+    }
+    public static boolean isContainKey(int[] keys, int targetValue)
+    {
+        if (keys == null || keys.length == 0)
+        {
+            return false;
+        }
+
+        for (int str : keys)
+        {
+            if (str == targetValue)
+            {
+                return true;
+            }
+        }
+
+        return false;
     }
 
 

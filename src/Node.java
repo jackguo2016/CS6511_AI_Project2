@@ -16,6 +16,7 @@ public class Node {
 public void addne(Node node){//添加邻居用的
         neb[necounter] = node;
         necounter ++; //吧计数器加一
+  //  System.out.println(necounter);
 }
 
 
