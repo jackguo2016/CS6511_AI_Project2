@@ -21,7 +21,7 @@ public class Main {
             while((str = in.readLine()) != null){
                 String[] input = str.split(",");
                 System.out.println(input[0]+" , "+input[1]);//用来检查输入的
-                if(graph.isEmpty()) {
+              /*  if(graph.isEmpty()) {
                     Node x = new Node(Integer.parseInt(input[0]), numOfClolor);
                     graph.add(x);
                     listnode[nodecounter] = Integer.parseInt(input[0]);
@@ -33,7 +33,7 @@ public class Main {
                     x.addne(y);//把他们链接状态记录给他们两个的array里
                     y.addne(x);
                 }
-                else{
+                else{*/
                     if(isContainKey(listnode,Integer.parseInt(input[0]))){
                         if(isContainKey(listnode,Integer.parseInt(input[1]))){
                             for (int i = 0; i< graph.size();i++) {
@@ -84,32 +84,17 @@ public class Main {
                         }
                     }
 
-
-
-
-
-
-
-
-
-
-                    /*for (int i = 0; i< graph.size();i++) {
-                        for (int j = 1; j < graph.size(); j++) {
-                            if (graph.get(i).name == Integer.parseInt(input[0])) {
-                                Node x = new Node(Integer.parseInt(input[1]), numOfClolor);
-                                graph.add(x);
-                                graph.get(i).addne(x);
-                                x.addne(graph.get(i));
-                            }
-
-                        }
-                    }*/
                 }
-            }
+            //}
 
         }
         catch (IOException e) {
         }
+
+        //graph.get(2).printname();
+        graph.get(6).printname();
+        printnode();
+
     }
 
     public void run(){
@@ -150,6 +135,14 @@ public class Main {
         }
 
         return false;
+    }
+
+    public static void printnode(){
+        System.out.println("这是所有的node的表：");
+        for (int i = 0; i < graph.size();i++){
+            System.out.println(graph.get(i).name);
+        }
+
     }
 
 

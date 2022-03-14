@@ -19,5 +19,13 @@ public void addne(Node node){//添加邻居用的
   //  System.out.println(necounter);
 }
 
+public void printname(){
+    System.out.println("This node is: "+this.name);
+        for (int i = 0; i < necounter;i++){
+            if(neb[i] != null){
+                System.out.println(neb[i].name);
+            }
+        }
+}
 
 }
