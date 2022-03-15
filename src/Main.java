@@ -16,7 +16,7 @@ public class Main {
 
 
         try {
-            BufferedReader in = new BufferedReader(new FileReader("src/test4.txt"));//4有问题
+            BufferedReader in = new BufferedReader(new FileReader("src/test.txt"));//4有问题
             String str;
             str = in.readLine();
             str = str.substring(9);
@@ -168,6 +168,10 @@ public class Main {
 
     //min remaining values, least constraining value
 
+    /**
+     * min remaining values
+     * @return a node to move next
+     */
     public static Node MRV(){//在图里找下一个着色点，（没着色的）找下一个有最少备选色的点来着色，就是要向前找适合的变量
         //在一开始选节点最多的那个nood开始，可以少回溯
         int tempclolrcounter = 99990;
@@ -183,6 +187,10 @@ public class Main {
         return tempnopde;
     }
 
+    /**
+     * least constraining value
+     * @return an array that help reduse tge time to try
+     */
     public static int[] LCV(){//在备选色中该选那个颜色，这里的策略是选使用的最多的颜色
         int [] temp = new int[cstatus.length];
         for (int i = 0; i < cstatus.length; ++i) {
