@@ -114,6 +114,9 @@ public class Main {
             return true;
         }
         Node nextNode = MRV();
+        if(nextNode == null){
+            return true;
+        }
         int[] order = LCV();
         Boolean ans = false;
         ArrayList<Node> backtemp = (ArrayList<Node>)graph.clone();//用来记录修改前的状态用于回溯
@@ -170,15 +173,20 @@ public class Main {
         Node tempnopde = null;
         for(int i = 0; i< graph.size();i++){
             if (graph.get(i).color == -1){
-                if(graph.get(i).colorReadyToChoice.size()<tempclolrcounter);
-                tempnopde = graph.get(i);
+                if(graph.get(i).colorReadyToChoice.size()<tempclolrcounter){
+                    tempnopde = graph.get(i);
+                }
+
             }
         }
         return tempnopde;
     }
 
     public static int[] LCV(){//在备选色中该选那个颜色，这里的策略是选使用的最多的颜色
-        int [] temp = cstatus;
+        int [] temp = new int[cstatus.length];
+        for (int i = 0; i < cstatus.length; ++i) {
+            temp[i] = cstatus[i];
+        }
         int counter = 0;
         int ans[] = new int[temp.length];
         while(counter<temp.length) {
