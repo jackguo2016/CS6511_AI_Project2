@@ -1,9 +1,13 @@
+import com.sun.tools.javac.util.ArrayUtils;
+
 import java.io.*;
 import java.util.*;
 public class Main {
     static int numOfClolor;//看有多少个颜色可以选
     static int nodecounter = 0;//记录现在有多少个node已经生成了
+    static int cololed = 0;//染了几个了
     static ArrayList<Node> graph =new ArrayList<>();//一个动态array来记录图上所有的节点
+    static int[] cstatus;//统计现在的颜色用了多少了
 
     static int [] listnode =new int [9999]; //用来记录创建了的node的值
     //static int listcount = 0;//上面中国array的index
@@ -17,6 +21,7 @@ public class Main {
             str = in.readLine();
             str = str.substring(9);
             numOfClolor =Integer.parseInt(str); //4 在里面
+            cstatus = new int[numOfClolor];
             System.out.println(numOfClolor);//用来检查输入的
             while((str = in.readLine()) != null){
                 String[] input = str.split(",");
@@ -92,13 +97,26 @@ public class Main {
         }
 
         //graph.get(2).printname();
-        graph.get(6).printname();
+        //graph.get(6).printname();
         printnode();
-
+        int [] test = {0,1,1,1};
+        test  = LCV(test);
+        System.out.println("LCV测试：");
+        for(int i:test){
+            System.out.println(i);
+        }
     }
 
-    public void run(){
+    public Boolean runBackT( ArrayList<Node> graph1){
+        if (cololed == nodecounter){
+            return true;
+        }
+        Node nextNode = MRV();
 
+
+
+
+        return false;
     }
 
 
@@ -111,13 +129,31 @@ public class Main {
 
     //min remaining values, least constraining value
 
-    public void MRV(){//在图里找下一个着色点，（没着色的）找下一个有最少备选色的点来着色，就是要向前找适合的变量
+    public Node MRV(){//在图里找下一个着色点，（没着色的）找下一个有最少备选色的点来着色，就是要向前找适合的变量
         //在一开始选节点最多的那个nood开始，可以少回溯
-
+        int tempclolrcounter = 99990;
+        Node tempnopde = null;
+        for(int i = 0; i< graph.size();i++){
+            if (graph.get(i).color == -1){
+                if(graph.get(i).colorReadyToChoice.size()<tempclolrcounter);
+                tempnopde = graph.get(i);
+            }
+        }
+        return tempnopde;
     }
 
-    public void LCV(){//在备选色中该选那个颜色，这里的策略是选
-
+    public static int[] LCV(int[] temp1){//在备选色中该选那个颜色，这里的策略是选使用的最多的颜色
+        //int [] temp = cstatus;
+        int [] temp = temp1;
+        int counter = 0;
+        int ans[] = new int[temp.length];
+        while(counter<temp.length) {
+            int max = maxValue(temp);
+            ans[counter] = findIndex(temp, max);
+            counter++;
+            temp[findIndex(temp, max)] = -1;
+        }
+        return ans;
     }
     public static boolean isContainKey(int[] keys, int targetValue)
     {
@@ -142,7 +178,49 @@ public class Main {
         for (int i = 0; i < graph.size();i++){
             System.out.println(graph.get(i).name);
         }
+    }
 
+    /*public static int findIndex(int arr[], int t)
+    {
+
+        int index = Arrays.binarySearch(arr, t);
+        return (index < 0) ? -1 : index;
+    }*/
+    public static int findIndex(int arr[], int t)
+    {
+
+        // if array is Null
+        if (arr == null) {
+            return -1;
+        }
+
+        // find length of array
+        int len = arr.length;
+        int i = 0;
+
+        // traverse in the array
+        while (i < len) {
+
+            // if the i-th element is t
+            // then return the index
+            if (arr[i] == t) {
+                return i;
+            }
+            else {
+                i = i + 1;
+            }
+        }
+        return -1;
+    }
+
+    private static int maxValue(int[] chars) {
+        int max = chars[0];
+        for (int ktr = 0; ktr < chars.length; ktr++) {
+            if (chars[ktr] > max) {
+                max = chars[ktr];
+            }
+        }
+        return max;
     }
 
 
