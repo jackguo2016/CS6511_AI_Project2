@@ -16,7 +16,7 @@ public class Main {
 
 
         try {
-            BufferedReader in = new BufferedReader(new FileReader("src/test.txt"));
+            BufferedReader in = new BufferedReader(new FileReader("src/test4.txt"));//4有问题
             String str;
             str = in.readLine();
             str = str.substring(9);
@@ -94,6 +94,7 @@ public class Main {
 
         }
         catch (IOException e) {
+            System.out.println("输入有问题");
         }
 
         //graph.get(2).printname();
