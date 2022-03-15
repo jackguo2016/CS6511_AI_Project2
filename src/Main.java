@@ -100,36 +100,69 @@ public class Main {
         //graph.get(6).printname();
         printnode();
         int [] test = {0,1,1,1};
-        test  = LCV(test);
-        System.out.println("LCV测试：");
-        for(int i:test){
-            System.out.println(i);
-        }
+        //test  = LCV(test);
+//        System.out.println("LCV测试：");
+//        for(int i:test){
+//            System.out.println(i);
+//        }
+        runBackTrack();
+        printans();
     }
 
-    public Boolean runBackT( ArrayList<Node> graph1){
+    public static Boolean runBackTrack( ){
         if (cololed == nodecounter){
             return true;
         }
         Node nextNode = MRV();
-
-
-
-
+        int[] order = LCV();
+        Boolean ans = false;
+        ArrayList<Node> backtemp = (ArrayList<Node>)graph.clone();//用来记录修改前的状态用于回溯
+        for(int i = 0; i< order.length;i++){
+            if(nextNode.colorReadyToChoice.contains(order[i])){
+               if(compcolo(nextNode,order[i])){
+                  // nextNode.color = order[i]; //这里注意这个颜色会不会改
+                   graph.get(graph.indexOf(nextNode)).color = order[i];
+                   cstatus[order[i]]++;//颜色的使用情况记录到array里也就是+1
+                   if(AC3()){
+                       ans = runBackTrack();
+                       if(ans){
+                           return true;
+                       }
+                   }
+               }
+            }
+            else{
+                continue;
+            }
+            graph.clear();
+            graph = (ArrayList<Node>)backtemp.clone(); //回溯到修改之前
+        }
         return false;
     }
 
 
-    public void AC3(){
+    public static boolean compcolo(Node node, int color){//用要着色的点的颜色来和这个点的邻居颜色对比
+        for (int i = 0; i < node.necounter;i++){
+            if(node.neb[i].color == color){
+                return false;
+            }
+        }
+        return true;
+    }
+
+
+    public static boolean AC3(){
         Queue<String> q = new LinkedList<>();
         /*add(E e);
         E remove()
         E peek() */
+
+        return true;
     }
 
     //min remaining values, least constraining value
 
-    public Node MRV(){//在图里找下一个着色点，（没着色的）找下一个有最少备选色的点来着色，就是要向前找适合的变量
+    public static Node MRV(){//在图里找下一个着色点，（没着色的）找下一个有最少备选色的点来着色，就是要向前找适合的变量
         //在一开始选节点最多的那个nood开始，可以少回溯
         int tempclolrcounter = 99990;
         Node tempnopde = null;
@@ -142,9 +175,8 @@ public class Main {
         return tempnopde;
     }
 
-    public static int[] LCV(int[] temp1){//在备选色中该选那个颜色，这里的策略是选使用的最多的颜色
-        //int [] temp = cstatus;
-        int [] temp = temp1;
+    public static int[] LCV(){//在备选色中该选那个颜色，这里的策略是选使用的最多的颜色
+        int [] temp = cstatus;
         int counter = 0;
         int ans[] = new int[temp.length];
         while(counter<temp.length) {
@@ -155,6 +187,7 @@ public class Main {
         }
         return ans;
     }
+
     public static boolean isContainKey(int[] keys, int targetValue)
     {
         if (keys == null || keys.length == 0)
@@ -180,12 +213,7 @@ public class Main {
         }
     }
 
-    /*public static int findIndex(int arr[], int t)
-    {
 
-        int index = Arrays.binarySearch(arr, t);
-        return (index < 0) ? -1 : index;
-    }*/
     public static int findIndex(int arr[], int t)
     {
 
@@ -222,6 +250,15 @@ public class Main {
         }
         return max;
     }
+
+
+    public static void printans(){
+        System.out.println("这是所有的node的着色结果展示：");
+        for (int i = 0; i < graph.size();i++){
+            System.out.println(graph.get(i).name +" and this node clolr is: "+ graph.get(i).color);
+        }
+    }
+
 
 
 }
