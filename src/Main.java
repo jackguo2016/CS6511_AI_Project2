@@ -123,6 +123,7 @@ public class Main {
                   // nextNode.color = order[i]; //这里注意这个颜色会不会改
                    graph.get(graph.indexOf(nextNode)).color = order[i];
                    cstatus[order[i]]++;//颜色的使用情况记录到array里也就是+1
+                   cololed++;//标注涂色了一个
                    if(AC3()){
                        ans = runBackTrack();
                        if(ans){
@@ -136,6 +137,7 @@ public class Main {
             }
             graph.clear();
             graph = (ArrayList<Node>)backtemp.clone(); //回溯到修改之前
+            cololed--;//标注删除了涂色一个
         }
         return false;
     }
