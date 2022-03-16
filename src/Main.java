@@ -119,7 +119,7 @@ public class Main {
             System.out.println("=============================");
             System.out.println("=============================");
 
-            System.out.println("there is no solution for this graph in put");
+            System.out.println("there is no solution for this graph in put.");
         }
     }
 
