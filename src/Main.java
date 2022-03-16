@@ -16,7 +16,7 @@ public class Main {
 
 
         try {
-            BufferedReader in = new BufferedReader(new FileReader("src/test3.txt"));
+            BufferedReader in = new BufferedReader(new FileReader("src/test4.txt"));
             String str;
             in.readLine();
             in.readLine();
@@ -160,14 +160,52 @@ public class Main {
     }
 
 
-    public static boolean AC3(){
-        Queue<String> q = new LinkedList<>();
-        /*add(E e);
-        E remove()
-        E peek() */
-
+    public static boolean AC3() {
+        Queue<Node> q = new LinkedList<>();
+        for (int i =0; i< graph.size();i++){
+            for (int j = 0;j<graph.get(i).necounter;j++){//add all the arcs to the queue
+                q.add(graph.get(i));
+                q.add(graph.get(i).neb[j]);
+            }
+        }
+        while (!q.isEmpty()){
+            Node neb = q.poll();
+            Node root = q.poll();
+            if(revise(neb,root)){
+                if(neb.colorReadyToChoice.isEmpty()){
+                    return false;
+                }
+                for (int i =0; i< neb.necounter;i++){
+                    q.add(neb.neb[i]);
+                    q.add(neb);
+                }
+            }
+        }
         return true;
     }
+
+    public static boolean revise(Node neb, Node root){
+        boolean revise = false;
+        for (int i = 0; i< neb.colorReadyToChoice.size();i++){
+            if(root.colorReadyToChoice.contains(neb.colorReadyToChoice.get(i))){
+                if(root.colorReadyToChoice.size()==1){
+                    revise =true;
+                    neb.colorReadyToChoice.remove(neb.colorReadyToChoice.get(i));
+                }
+            }
+        }
+
+
+        return revise;
+    }
+    /*public static boolean AC3(){
+        Queue<String> q = new LinkedList<>();
+        /*add(E e);
+        E remove()                                  //现在可以用的
+        E peek()
+
+        return true;
+    }*/
 
     //min remaining values, least constraining value
 
