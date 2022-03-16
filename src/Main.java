@@ -16,7 +16,7 @@ public class Main {
 
 
         try {
-            BufferedReader in = new BufferedReader(new FileReader("src/test2.txt"));//  <--------- change here to test different test case
+            BufferedReader in = new BufferedReader(new FileReader("src/test4.txt"));//  <--------- change here to test different test case
             String str;
             in.readLine();
             in.readLine();
@@ -119,11 +119,11 @@ public class Main {
             System.out.println("=============================");
             System.out.println("=============================");
 
-            System.out.println("there is no solution for this graph in put.");
+            System.out.println("There is no solution for this graph input.");
         }
     }
 
-    public static Boolean runBackTrack( ){
+    public static Boolean runBackTrack( ){ //backTrack part, the main run part for this project
         if (cololed == nodecounter){
             return true;
         }
@@ -194,7 +194,7 @@ public class Main {
         return true;
     }
 
-    public static boolean revise(Node neb, Node root){
+    public static boolean revise(Node neb, Node root){  //help function for AC3
         boolean revise = false;
         for (int i = 0; i< neb.colorReadyToChoice.size();i++){
             if(root.colorReadyToChoice.contains(neb.colorReadyToChoice.get(i))){
@@ -216,7 +216,7 @@ public class Main {
      * @return a node to move next
      */
     public static Node MRV(){//Find the next coloring point in the graph, (uncolored) find the next point with the least alternative color to color, that is, to find the suitable variable forward
-        //Start with the nood with the most nodes selected at the beginning, you can reduce backtracking
+        //Start with the nood with the most nodes selected at the beginning, can reduce backtracking times
         int tempclolrcounter = 99990;
         Node tempnopde = null;
         for(int i = 0; i< graph.size();i++){
