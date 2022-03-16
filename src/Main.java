@@ -16,7 +16,7 @@ public class Main {
 
 
         try {
-            BufferedReader in = new BufferedReader(new FileReader("src/test4.txt"));
+            BufferedReader in = new BufferedReader(new FileReader("src/test4.txt"));//  <--------- change here to test different test case
             String str;
             in.readLine();
             in.readLine();
