@@ -3,39 +3,42 @@ import com.sun.tools.javac.util.ArrayUtils;
 import java.io.*;
 import java.util.*;
 public class Main {
-    static int numOfClolor;//看有多少个颜色可以选
-    static int nodecounter = 0;//记录现在有多少个node已经生成了
-    static int cololed = 0;//染了几个了
-    static ArrayList<Node> graph =new ArrayList<>();//一个动态array来记录图上所有的节点
-    static int[] cstatus;//统计现在的颜色用了多少了
+    static int numOfClolor;//See how many colors are available
+    static int nodecounter = 0;//Record how many nodes have been generated now
+    static int cololed = 0;//dyed a few
+    static ArrayList<Node> graph =new ArrayList<>();//A dynamic array to record all nodes on the graph
+    static int[] cstatus;//Count how many colors are used now
 
-    static int [] listnode =new int [9999]; //用来记录创建了的node的值
-    //static int listcount = 0;//上面中国array的index
+    static int [] listnode =new int [9999]; //Used to record the value of the created node
+    //static int listcount = 0;//The index of the above array
     public static void main(String[] args)
-    {//一开始读的时候需要把所有的节点统一存到一个array里去
+    {//When reading at the beginning, all nodes need to be stored in an array
 
 
         try {
-            BufferedReader in = new BufferedReader(new FileReader("src/test.txt"));//4有问题
+            BufferedReader in = new BufferedReader(new FileReader("src/test3.txt"));
             String str;
+            in.readLine();
+            in.readLine();
             str = in.readLine();
+            in.readLine();
             str = str.substring(9);
-            numOfClolor =Integer.parseInt(str); //4 在里面
+            numOfClolor =Integer.parseInt(str);
             cstatus = new int[numOfClolor];
-            System.out.println(numOfClolor);//用来检查输入的
+            System.out.println(numOfClolor);//for checking input
             while((str = in.readLine()) != null){
                 String[] input = str.split(",");
-                System.out.println(input[0]+" , "+input[1]);//用来检查输入的
+                System.out.println(input[0]+" , "+input[1]);//for checking input
               /*  if(graph.isEmpty()) {
                     Node x = new Node(Integer.parseInt(input[0]), numOfClolor);
                     graph.add(x);
                     listnode[nodecounter] = Integer.parseInt(input[0]);
                     nodecounter++;
-                    Node y = new Node(Integer.parseInt(input[1]), numOfClolor);//每一行输入创建两个node
+                    Node y = new Node(Integer.parseInt(input[1]), numOfClolor);//Create two nodes per line of input
                     graph.add(x);
                     listnode[nodecounter] = Integer.parseInt(input[0]);
                     nodecounter++;
-                    x.addne(y);//把他们链接状态记录给他们两个的array里
+                    x.addne(y);//record their link status in their two arrays
                     y.addne(x);
                 }
                 else{*/
@@ -84,7 +87,7 @@ public class Main {
                             graph.add(y);
                             listnode[nodecounter] = Integer.parseInt(input[1]);
                             nodecounter++;
-                            x.addne(y);//把他们链接状态记录给他们两个的array里
+                            x.addne(y);//record their link status in their two arrays
                             y.addne(x);
                         }
                     }
@@ -94,7 +97,7 @@ public class Main {
 
         }
         catch (IOException e) {
-            System.out.println("输入有问题");
+            System.out.println("There is a problem with the input");
         }
 
         //graph.get(2).printname();
@@ -102,7 +105,7 @@ public class Main {
         printnode();
         int [] test = {0,1,1,1};
         //test  = LCV(test);
-//        System.out.println("LCV测试：");
+//        System.out.println("LCVtest：");
 //        for(int i:test){
 //            System.out.println(i);
 //        }
@@ -120,14 +123,14 @@ public class Main {
         }
         int[] order = LCV();
         Boolean ans = false;
-        ArrayList<Node> backtemp = (ArrayList<Node>)graph.clone();//用来记录修改前的状态用于回溯
+        ArrayList<Node> backtemp = (ArrayList<Node>)graph.clone();//Used to record the state before modification for backtracking
         for(int i = 0; i< order.length;i++){
             if(nextNode.colorReadyToChoice.contains(order[i])){
                if(compcolo(nextNode,order[i])){
-                  // nextNode.color = order[i]; //这里注意这个颜色会不会改
+                  // nextNode.color = order[i]; //Note here whether this color will change
                    graph.get(graph.indexOf(nextNode)).color = order[i];
-                   cstatus[order[i]]++;//颜色的使用情况记录到array里也就是+1
-                   cololed++;//标注涂色了一个
+                   cstatus[order[i]]++;//The usage of the color is recorded in the array, that is,+1
+                   cololed++;//The callout is colored one
                    if(AC3()){
                        ans = runBackTrack();
                        if(ans){
@@ -140,14 +143,14 @@ public class Main {
                 continue;
             }
             graph.clear();
-            graph = (ArrayList<Node>)backtemp.clone(); //回溯到修改之前
+            graph = (ArrayList<Node>)backtemp.clone(); //Backtracking before modification
             cololed--;//标注删除了涂色一个
         }
         return false;
     }
 
 
-    public static boolean compcolo(Node node, int color){//用要着色的点的颜色来和这个点的邻居颜色对比
+    public static boolean compcolo(Node node, int color){//Use the color of the point to be colored against the color of this point's neighbors
         for (int i = 0; i < node.necounter;i++){
             if(node.neb[i].color == color){
                 return false;
@@ -172,8 +175,8 @@ public class Main {
      * min remaining values
      * @return a node to move next
      */
-    public static Node MRV(){//在图里找下一个着色点，（没着色的）找下一个有最少备选色的点来着色，就是要向前找适合的变量
-        //在一开始选节点最多的那个nood开始，可以少回溯
+    public static Node MRV(){//Find the next coloring point in the graph, (uncolored) find the next point with the least alternative color to color, that is, to find the suitable variable forward
+        //Start with the nood with the most nodes selected at the beginning, you can reduce backtracking
         int tempclolrcounter = 99990;
         Node tempnopde = null;
         for(int i = 0; i< graph.size();i++){
@@ -191,7 +194,7 @@ public class Main {
      * least constraining value
      * @return an array that help reduse tge time to try
      */
-    public static int[] LCV(){//在备选色中该选那个颜色，这里的策略是选使用的最多的颜色
+    public static int[] LCV(){//Which color should be selected among the alternative colors, the strategy here is to choose the color that is used the most
         int [] temp = new int[cstatus.length];
         for (int i = 0; i < cstatus.length; ++i) {
             temp[i] = cstatus[i];
@@ -226,7 +229,7 @@ public class Main {
     }
 
     public static void printnode(){
-        System.out.println("这是所有的node的表：");
+        System.out.println("Here is a table of all nodes created successfully:：");
         for (int i = 0; i < graph.size();i++){
             System.out.println(graph.get(i).name);
         }
@@ -272,7 +275,7 @@ public class Main {
 
 
     public static void printans(){
-        System.out.println("这是所有的node的着色结果展示：");
+        System.out.println("Here is the coloring result for all nodes：");
         for (int i = 0; i < graph.size();i++){
             System.out.println(graph.get(i).name +" and this node clolr is: "+ graph.get(i).color);
         }

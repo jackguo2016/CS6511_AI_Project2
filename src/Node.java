@@ -2,14 +2,14 @@ import java.util.ArrayList;
 
 public class Node {
     Node neb [] = new Node [9999];
-    int necounter = 0;//用来记录现在有几个邻居用的
+    int necounter = 0;//Used to record how many neighbors there are now
     int name;
     int color = -1;
     //int colorReadyToChoice [] ;
     ArrayList<Integer> colorReadyToChoice =new ArrayList<>();
 
 
-    public Node (int n, int cl){ //cl是颜色的个数
+    public Node (int n, int cl){ //cl is the number of colors
         this.name = n;
        // colorReadyToChoice = new int[cl];
         for(int i = 0; i< cl;i++){
@@ -17,9 +17,9 @@ public class Node {
         }
     }
 
-public void addne(Node node){//添加邻居用的
+public void addne(Node node){//for adding neighbors
         neb[necounter] = node;
-        necounter ++; //吧计数器加一
+        necounter ++; //Increment the counter by one
   //  System.out.println(necounter);
 }
 
