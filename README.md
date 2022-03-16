@@ -1,5 +1,6 @@
 # CS6511_AI_Project2
-CSP.AC3 problem
+CSP.AC3 problem:
+
 In this project I have two main java class: Node and Main.
 
 In Node class, I have an array call neb to store all neighbor nodes. and 3 variables representing the information of this node.
