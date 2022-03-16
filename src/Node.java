@@ -23,7 +23,7 @@ public void addne(Node node){//for adding neighbors
   //  System.out.println(necounter);
 }
 
-public void printname(){
+public void printname(){//print all the node that have been created
     System.out.println("This node is: "+this.name);
         for (int i = 0; i < necounter;i++){
             if(neb[i] != null){

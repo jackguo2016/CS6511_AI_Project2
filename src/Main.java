@@ -16,7 +16,7 @@ public class Main {
 
 
         try {
-            BufferedReader in = new BufferedReader(new FileReader("src/test4.txt"));//  <--------- change here to test different test case
+            BufferedReader in = new BufferedReader(new FileReader("src/test2.txt"));//  <--------- change here to test different test case
             String str;
             in.readLine();
             in.readLine();
@@ -59,7 +59,7 @@ public class Main {
                             listnode[nodecounter] = Integer.parseInt(input[1]);
                             nodecounter++;
                             for (int i = 0; i< graph.size();i++) {
-                                if(graph.get(i).name == Integer.parseInt(input[0]) ){
+                                if(graph.get(i).name == Integer.parseInt(input[0]) ){ //make the graph in different situation
                                     graph.get(i).addne(x);
                                     x.addne(graph.get(i));
                                 }
@@ -101,16 +101,26 @@ public class Main {
         }
 
         //graph.get(2).printname();
-        //graph.get(6).printname();
+        //graph.get(6).printname();  //check input
         printnode();
         int [] test = {0,1,1,1};
         //test  = LCV(test);
-//        System.out.println("LCVtest：");
+//        System.out.println("LCVtest："); //check the function of LCV function
 //        for(int i:test){
 //            System.out.println(i);
 //        }
-        runBackTrack();
-        printans();
+        if (runBackTrack()){
+            System.out.println("=============================");
+            System.out.println("=============================");
+            System.out.println("=============================");
+            printans();}
+        else{
+            System.out.println("=============================");
+            System.out.println("=============================");
+            System.out.println("=============================");
+
+            System.out.println("there is no solution for this graph in put");
+        }
     }
 
     public static Boolean runBackTrack( ){
@@ -198,14 +208,6 @@ public class Main {
 
         return revise;
     }
-    /*public static boolean AC3(){
-        Queue<String> q = new LinkedList<>();
-        /*add(E e);
-        E remove()                                  //现在可以用的
-        E peek()
-
-        return true;
-    }*/
 
     //min remaining values, least constraining value
 
@@ -315,7 +317,7 @@ public class Main {
     public static void printans(){
         System.out.println("Here is the coloring result for all nodes：");
         for (int i = 0; i < graph.size();i++){
-            System.out.println(graph.get(i).name +" and this node clolr is: "+ graph.get(i).color);
+            System.out.println(graph.get(i).name +" and this node color is: "+ graph.get(i).color);
         }
     }
 
