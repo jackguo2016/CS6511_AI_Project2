@@ -78,3 +78,8 @@ In Node class, I have an array call neb to store all neighbor nodes. and 3 varia
 In Main class, Most of the work is done here, which mainly includes the main algorithms for solving CSP, AC3, MRV, LCV. The AC3 here is to improve the project by traversing the whole graph and reducing the selectable colors of the subsequent nodes. overall operating speed. MRV is Find the next coloring point in the graph, (uncolored) find the next point with the least alternative color to color, that is, to find the suitable variable forward. LCV is to decide which color should be selected among the alternative colors, the strategy here is to choose the color that is used the most.
 
 I also have all the test case prove by professor in the test#.txt files. to run those test file just need simply change the file name at Main.java line 19(BufferedReader in = new BufferedReader(new FileReader("src/test2.txt"));//  <--------- change here to test different test case)
+
+这个项目是一个针对图着色问题的求解器，采用了约束满足问题（CSP）的方法。开发者使用Java语言实现了几种常见的CSP技术，包括AC-3（弧一致性算法）、MRV（最小剩余值）和LCV（最少约束值）启发式方法。
+项目的核心结构包括两个主要类：Node类用于表示图中的节点，Main类则包含了主要的求解算法。AC-3算法被用来预处理和动态减少可选颜色，MRV用于选择下一个要着色的节点，而LCV则用于颜色选择策略。这些方法与回溯搜索相结合，构成了求解器的主体。
+代码组织相对简洁，主要功能都集中在Main类中实现。开发者还编写了一些基本的单元测试，以验证关键函数的正确性。项目包含了多个测试用例，用于检验求解器在不同输入下的表现。
+虽然这个实现涵盖了CSP的一些基本技术，但仍有改进空间。例如，可以考虑引入更多高级的CSP方法，或者优化大规模图的处理效率。总的来说，这个项目展示了CSP技术在图着色问题上的基本应用，为理解这类算法在实际问题中的运用提供了一个具体示例
